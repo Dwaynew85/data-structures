@@ -1,6 +1,6 @@
 const LinkedList = require("./LinkedList");
 
-class Queue {
+class Queue { // First In First Out
   constructor(maxSize = Infinity) {
     this.queue = new LinkedList();
     this.maxSize = maxSize;
