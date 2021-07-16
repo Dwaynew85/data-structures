@@ -1,5 +1,7 @@
 const testGraph = require('./testGraph.js');
+const testGraph2 = require('./testGraph2.js');
 const Queue = require('../Queue.js');
+const PriorityQueue = require('../PriorityQueue.js');
 
 const depthFirstTraversal = (start, callback, visitedVertices = [start]) => {
   callback(start);
@@ -31,6 +33,36 @@ const breadthFirstTraversal = (start) => {
   }
   
 };
+
+// Dijkstras algorithm
+
+const dijkstras = (graph, startingVertex) => {
+	const distances = {};
+	const previous = {};
+
+	graph.vertices.forEach((vertex) => {
+		distances[vertex.data] = Infinity;
+		previous[vertex.data] = null;
+	});
+
+	distances[startingVertex.data] = 0;
+
+  const vertex = startingVertex;
+
+	vertex.edges.forEach((edge) => {
+		const alternate = edge.weight + distances[vertex.data];
+		const neighborValue = edge.end.data;
+
+		if (alternate < distances[neighborValue]) {
+			distances[neighborValue] = alternate;
+			previous[neighborValue] = vertex;
+		}
+	})
+	return { distances, previous };
+};
+
+const results = dijkstras(testGraph2, testGraph2.vertices[0]);
+console.log(results);
 
 module.exports = {
     depthFirstTraversal,
