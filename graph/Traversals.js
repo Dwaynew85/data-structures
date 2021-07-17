@@ -39,6 +39,9 @@ const breadthFirstTraversal = (start) => {
 const dijkstras = (graph, startingVertex) => {
 	const distances = {};
 	const previous = {};
+	const queue = new PriorityQueue();
+
+	queue.add({ vertex: startingVertex, priority: 0 });
 
 	graph.vertices.forEach((vertex) => {
 		distances[vertex.data] = Infinity;
@@ -47,17 +50,22 @@ const dijkstras = (graph, startingVertex) => {
 
 	distances[startingVertex.data] = 0;
 
-  const vertex = startingVertex;
+	while (!queue.isEmpty()) {
+		const { vertex } = queue.popMin();
 
-	vertex.edges.forEach((edge) => {
-		const alternate = edge.weight + distances[vertex.data];
-		const neighborValue = edge.end.data;
+		vertex.edges.forEach((edge) => {
+			const alternate = edge.weight + distances[vertex.data];
+			const neighborValue = edge.end.data;
 
-		if (alternate < distances[neighborValue]) {
-			distances[neighborValue] = alternate;
-			previous[neighborValue] = vertex;
-		}
-	})
+			if (alternate < distances[neighborValue]) {
+				distances[neighborValue] = alternate;
+				previous[neighborValue] = vertex;
+
+				queue.add({ vertex: edge.end, priority: distances[neighborValue] })
+			}
+		})
+	}
+
 	return { distances, previous };
 };
 
@@ -66,7 +74,9 @@ console.log(results);
 
 module.exports = {
     depthFirstTraversal,
-    breadthFirstTraversal
+    breadthFirstTraversal,
+    dijkstras
+
 }
 
 depthFirstTraversal(testGraph.vertices[0], (vertex) => { console.log(vertex.data) });
