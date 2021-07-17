@@ -77,9 +77,9 @@ class PriorityQueue {
     }
   }
   
-//   const getParent = current => Math.floor((current / 2));
-//   const getLeft = current => current * 2;
-//   const getRight = current => current * 2 + 1;
+const getParent = current => Math.floor((current / 2));
+const getLeft = current => current * 2;
+const getRight = current => current * 2 + 1;
   
   module.exports = PriorityQueue;
   
