@@ -1,4 +1,4 @@
-const { Graph } = require('./Graph.js');
+const Graph = require('./Graph.js');
 // testing Dijkstras algorithm
 const testGraph = new Graph(true, true);
 const a = testGraph.addVertex('A');
